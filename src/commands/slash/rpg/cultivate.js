@@ -262,14 +262,8 @@ module.exports = {
                     });
                     player.markModified('techniques');
                 };
-
-                if (riskOrReward) {
+                
                     player.cultivation.experience += exp;
-                } else {
-                    if (player.cultivation.experience >= exp) {
-                        player.cultivation.experience -= exp;
-                    };
-                };
                 if (player.cultivation.experience >= player.cultivation.requiredExperience) {
                     player.cultivation.experience = 0;
                     player.cultivation.requiredExperience = requiredExp;
@@ -350,7 +344,7 @@ module.exports = {
                     `> (${player.coordinates.x}, ${player.coordinates.y}, ${player.coordinates.z}, ${player.coordinates.zy})`,
                     `**Cultivators: (1/5):**`,
                     `${cultivators}\n`,
-                    `*<@${player.userId}> ${txt}* **${riskOrReward ? `+${exp}` : `You lost ${exp}`} XP!**`,
+                    `*<@${player.userId}> ${txt}* **+${exp} XP!**`,
                 ];
 
                 const newRemainingXp = player.cultivation.requiredExperience - player.cultivation.experience;
