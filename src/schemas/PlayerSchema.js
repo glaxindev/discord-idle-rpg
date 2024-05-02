@@ -13,6 +13,11 @@ const playerSchema = new Schema({
     realm: { type: String, default: 'Mortal' },
     experience: { type: Number, default: 0 },
     requiredExperience: { type: Number, default: 100 },
+    traverse: {
+      traversed: { type: Boolean, default: false },
+      oldRealm: { type: String, default: 'None' },
+      cooldown: { type: Date, default: Date.now() },
+    },
   },
   equippedItems: { type: Array, default: [] },
   stats: {
@@ -23,10 +28,38 @@ const playerSchema = new Schema({
     wisdom: { type: Number, default: 10 },
   },
   money: { type: Number, default: 100 },
-  techniques: { type: Array, default: [
-    config.techniques[5],
-  ] },
+  techniques: { type: Array, default: [] },
   equippedTechniques: { type: Array, default: [] },
+  trackings: {
+    startedPlaying: { type: Date, default: Date.now() },
+    lastAction: { type: Date, default: Date.now() },
+    totalActions: { type: Number, default: 0 },
+    userType: { type: String, default: 'player' },
+    playerNumber: { type: Number, default: 0 },
+    commandsUsage: {
+      stats: { type: Number, default: 0 },
+      commands: { type: Number, default: 0 },
+      inventory: { type: Number, default: 0 },
+      journey: { type: Number, default: 0 },
+      profile: { type: Number, default: 0 },
+      start: { type: Number, default: 0 },
+      techniques: { type: Number, default: 0 },
+      leaderboard: { type: Number, default: 0 },
+      challenge: { type: Number, default: 0 },
+      cultivate: { type: Number, default: 0 },
+    },
+  },
+  cooldown: {
+    lastCommand: { type: Date, default: Date.now() },
+  },
+  location: { type: String, default: 'Mountain' },
+  journeyMovementCount: { type: Number, default: 0 },
+  coordinates: {
+    x: { type: Number, default: 0 },
+    y: { type: Number, default: 0 },
+    z: { type: Number, default: 0 },
+    zy: { type: Number, default: 0 },
+  },
 });
 
 const Player = model('Player', playerSchema);

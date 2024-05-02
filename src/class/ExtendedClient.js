@@ -1,10 +1,11 @@
-const { Client, Partials, Collection, GatewayIntentBits, ActivityType } = require("discord.js");
+const { Client, Partials, Collection, GatewayIntentBits } = require("discord.js");
 const config = require(`${process.cwd()}/src/config.js`);
 const commands = require(`${process.cwd()}/src/handlers/commands.js`);
 const events = require(`${process.cwd()}/src/handlers/events.js`);
 const deploy = require(`${process.cwd()}/src/handlers/deploy.js`);
 const mongoose = require(`${process.cwd()}/src/handlers/mongoose.js`);
 const components = require(`${process.cwd()}/src/handlers/components.js`);
+const { ClusterClient, getInfo } = require('discord-hybrid-sharding');
 
 module.exports = class extends Client {
     collection = {
@@ -19,6 +20,7 @@ module.exports = class extends Client {
         },
     };
     applicationcommandsArray = [];
+    cluster = new ClusterClient(this);
 
     constructor() {
         super({
@@ -31,13 +33,8 @@ module.exports = class extends Client {
                 Partials.User,
                 Partials.ThreadMember
             ],
-            presence: {
-                status: "idle",
-                activities: [{
-                    name: "with your mind",
-                    type: ActivityType.Playing
-                }]
-            }
+            shards: getInfo().SHARD_LIST, // An array of shards that will get spawned
+            shardCount: getInfo().TOTAL_SHARDS, // Total number of shards
         });
     };
 

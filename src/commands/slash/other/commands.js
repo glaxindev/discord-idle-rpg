@@ -13,32 +13,16 @@ module.exports = {
     run: async (client, interaction) => {
         const commands = [
             {
-                name: 'start',
-                description: 'Starts your adventure by creating a character.'
-            },
-            {
                 name: 'profile',
                 description: 'Shows your or target user profile to you.'
-            },
-            {
-                name: 'statistics',
-                description: 'Shows your or target user statistics to you.'
             },
             {
                 name: 'journey',
                 description: 'Asks you multiple questions to determine your journey.'
             },
             {
-                name: 'inventory view',
+                name: 'inventory',
                 description: 'Shows the items you have in your inventory.'
-            },
-            {
-                name: 'inventory use',
-                description: 'Use/equip an item from your inventory.'
-            },
-            {
-                name: 'inventory upgrade',
-                description: 'Upgrade an item from your inventory.'
             },
             {
                 name: 'leaderboard',
@@ -49,40 +33,16 @@ module.exports = {
                 description: 'Cultivate to gain experience and breakthrough.'
             },
             {
-                name: 'shop',
-                description: 'Shows you the shop where you can buy items.'
-            },
-            {
                 name: 'commands',
                 description: 'Lists all the commands available in the bot.'
             },
             {
-                name: 'challenge',
-                description: 'The mentioned user is autobattled, turn based.'
-            },
-            {
-                name: 'techniques view',
-                description: 'Shows you the techniques you have in your inventory.'
-            },
-            {
-                name: 'techniques equip',
-                description: 'Equip a technique from your inventory.'
-            },
-            {
-                name: 'techniques unequip',
-                description: 'Unequip a technique from your inventory.'
-            },
-            {
-                name: 'techniques info',
-                description: 'Shows you the information of a technique.'
+                name: 'botinfo',
+                description: 'Shows information about the bot.'
             }
         ];
 
-        const arr = [
-            `**Command Name‎ ‎‎  ‎‎  Description**`,
-            `<:black_arrow:1229396585956380715> Here you can see all the commands available in the bot.`,
-            `\n`,
-        ];
+        const arr = [];
 
         const embed = new EmbedBuilder()
             .setTitle('Commands List')
@@ -90,7 +50,7 @@ module.exports = {
             .setTimestamp();
 
         await commands.forEach((command, index) => {
-            arr.push(`<:black_arrow:1229396585956380715> [**${command.name}** - ${command.description}](https://immadebyglaxindev.com)`);
+            arr.push(`<:black_arrow:1229396585956380715> /**${command.name}**`);
         });
 
         embed.setDescription(arr.join('\n'));
@@ -104,6 +64,6 @@ module.exports = {
         const actionRow = new ActionRowBuilder()
             .addComponents(button);
 
-        interaction.reply({ embeds: [embed], components: [actionRow] });
+        interaction.reply({ embeds: [embed], components: [] });
     }
 };

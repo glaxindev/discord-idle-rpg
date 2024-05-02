@@ -3,6 +3,7 @@ module.exports = {
     token:
       "MTIzMTYwNTA0MjAyMTEzODUzMg.GPeu4q.vDWMyaJkZYkinmT9NDjCO6bkElxm-S3MntUQps",
     id: "1231605042021138532",
+    supportServer: "https://discord.gg/",
   },
   handler: {
     prefix: "?",
@@ -10,30 +11,30 @@ module.exports = {
     commands: {
       prefix: false,
       slash: true,
-      user: true,
-      message: true,
+      user: false,
+      message: false,
     },
     mongodb: {
       enabled: true,
-      uri: "mongodb+srv://admin:123@discord-bot.yq5hcav.mongodb.net/?retryWrites=true&w=majority&appName=Discord-Bot",
+      uri: "mongodb+srv://admin:123@discord-bot.yq5hcav.mongodb.net/?retryWrites=true&w=majority&appName=Xianxia2",
     },
   },
   users: {
-    developers: ["254833691438743552", "1191264521508110360"],
+    developers: ["1191264521508110360", "254833691438743552"],
     ownerId: "254833691438743552",
   },
   channels: {
     modLogs: {
       enabled: false,
-      channel: "0",
+      channel: "1231080262079614987",
     },
   },
   development: {
     enabled: false,
-    guild: "0",
+    guild: "1229304088819142678",
   },
   color: {
-    main: "#008000",
+    main: "#32CD32",
   },
   messageSettings: {
     nsfwMessage: "<:error:1229320037131882598> The current channel is not a NSFW channel.",
@@ -63,7 +64,7 @@ module.exports = {
       upgraded: false,
       upgradeCost: 2000,
       upgradeAttack: 30,
-      uid: "1",
+      uid: "192233",
       type: "weapon",
     },
     // { name: 'Potion', rarity: 'Uncommon', healthRestore: 20 },
@@ -76,7 +77,7 @@ module.exports = {
       price: 200,
       upgradable: false,
       upgraded: false,
-      uid: "2",
+      uid: "122149",
       type: "item",
       powerXp: 60,
     },
@@ -90,9 +91,9 @@ module.exports = {
       price: 500,
       upgradable: false,
       upgraded: false,
-      uid: "3",
+      uid: "193168",
       type: "item",
-      powerXp: 100,
+      powerXp: 60,
     },
     {
       name: "Artifact",
@@ -103,9 +104,9 @@ module.exports = {
       price: 300,
       upgradable: false,
       upgraded: false,
-      uid: "4",
+      uid: "073120",
       type: "item",
-      powerXp: 120,
+      powerXp: 100,
     },
     {
       name: "Treasure",
@@ -116,9 +117,9 @@ module.exports = {
       price: 1000,
       upgradable: false,
       upgraded: false,
-      uid: "5",
+      uid: "073128",
       type: "item",
-      powerXp: 200,
+      powerXp: 80,
     },
     {
       name: "Relic",
@@ -129,9 +130,9 @@ module.exports = {
       price: 800,
       upgradable: false,
       upgraded: false,
-      uid: "6",
+      uid: "100268",
       type: "item",
-      powerXp: 100,
+      powerXp: 80,
     },
     // {
     //   name: "Talisman",
@@ -154,9 +155,9 @@ module.exports = {
       price: 1500,
       upgradable: false,
       upgraded: false,
-      uid: "8",
+      uid: "999120",
       type: "item",
-      powerXp: 500,
+      powerXp: 80,
     },
     // nothing
   ],
@@ -226,6 +227,8 @@ module.exports = {
       uid: "1",
       equip: false,
       proficiency: 1,
+      requiredProficiency: 30,
+      stage: "Basic",
     },
     {
       name: "Furious Strikes",
@@ -235,6 +238,8 @@ module.exports = {
       uid: "2",
       equip: false,
       proficiency: 1,
+      requiredProficiency: 30,
+      stage: "Basic",
     },
     {
       name: "Tranquil Mind",
@@ -244,6 +249,8 @@ module.exports = {
       uid: "3",
       equip: false,
       proficiency: 1,
+      requiredProficiency: 30,
+      stage: "Basic",
     },
     {
       name: "Focused Breath",
@@ -253,6 +260,8 @@ module.exports = {
       uid: "4",
       equip: false,
       proficiency: 1,
+      requiredProficiency: 30,
+      stage: "Basic",
     },
     {
       name: "Breath of Enlightenment",
@@ -262,6 +271,8 @@ module.exports = {
       uid: "5",
       equip: false,
       proficiency: 1,
+      requiredProficiency: 30,
+      stage: "Basic",
     },
     {
       name: "Iron Body",
@@ -271,6 +282,8 @@ module.exports = {
       uid: "6",
       equip: false,
       proficiency: 1,
+      requiredProficiency: 30,
+      stage: "Basic",
     },
     {
       name: "Masterful Mind",
@@ -280,6 +293,8 @@ module.exports = {
       uid: "7",
       equip: false,
       proficiency: 1,
+      requiredProficiency: 30,
+      stage: "Basic",
     },
     {
       name: "Nimble Feet",
@@ -289,6 +304,8 @@ module.exports = {
       uid: "8",
       equip: false,
       proficiency: 1,
+      requiredProficiency: 30,
+      stage: "Basic",
     },
     {
       name: "Vital Spirit",
@@ -298,6 +315,8 @@ module.exports = {
       uid: "9",
       equip: false,
       proficiency: 1,
+      requiredProficiency: 30,
+      stage: "Basic",
     }
   ],
 };

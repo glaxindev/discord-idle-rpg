@@ -8,10 +8,10 @@ const chalk = require("chalk");
  */
 const log = (string, style) => {
   const styles = {
-    info: { prefix: chalk.yellow("(info)"), logFunction: console.log },
-    err: { prefix: chalk.red("(error)"), logFunction: console.error },
-    warn: { prefix: chalk.white("(warn)"), logFunction: console.warn },
-    done: { prefix: chalk.green("(success)"), logFunction: console.log },
+    info: { prefix: chalk.bgBlue.white.underline("[INFO]"), logFunction: console.log },
+    err: { prefix: chalk.bgRed.white.underline("[ERROR]"), logFunction: console.error },
+    warn: { prefix: chalk.bgYellow.white.underline("[WARNING]"), logFunction: console.warn },
+    done: { prefix: chalk.bgGreen.white.underline("[SUCCESS]"), logFunction: console.log },
   };
 
   const selectedStyle = styles[style] || { logFunction: console.log };
@@ -38,7 +38,6 @@ const time = (time, style) => {
 const isSnowflake = (id) => {
   return /^\d+$/.test(id);
 };
-
 
 module.exports = {
   log,

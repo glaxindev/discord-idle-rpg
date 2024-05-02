@@ -2,7 +2,9 @@ const config = require("../../config");
 const { log } = require("../../functions");
 const ExtendedClient = require("../../class/ExtendedClient");
 
-const cooldown = new Map();
+// const cooldown = new Map();
+const moment = require("moment");
+const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
     event: "interactionCreate",
@@ -36,6 +38,28 @@ module.exports = {
         );
 
         if (!command) return;
+        // await interaction.reply({ content: "Processing...", ephemeral: true });
+
+        const Player = require('../../schemas/PlayerSchema.js');
+        let player = await Player.findOne({ userId: interaction.user.id });
+
+        if (!player) {
+            await Player.create({
+              userId: interaction.user.id,
+              username: interaction.user.tag,
+            });
+            player = await Player.findOne({ userId: interaction.user.id });
+          };
+
+        if (player) {
+            player.trackings.lastAction = Date.now();
+            player.trackings.totalActions++;
+            if (player.trackings.playerNumber === 0) {
+                player.trackings.playerNumber = await Player.countDocuments();
+            };
+            player.trackings.commandsUsage[interaction.commandName]++;
+            await player.save();
+        };
 
 
         // // leveling
@@ -183,52 +207,60 @@ module.exports = {
                 return;
             }
 
-            if (command.options?.cooldown) {
-                const isGlobalCooldown = command.options.globalCooldown;
-                const cooldownKey = isGlobalCooldown ? 'global_' + command.structure.name : interaction.user.id;
-                const cooldownFunction = () => {
-                    let data = cooldown.get(cooldownKey);
 
-                    data.push(interaction.commandName);
+            if (interaction.isCommand) {
+                const lastUsed = player.cooldown.lastCommand;
+                const currentTime = Date.now();
+                const difference = currentTime - lastUsed;
+                const remaining = 8000 - difference;
 
-                    cooldown.set(cooldownKey, data);
+                if (difference < 8000) {
+                    const remainingTime = moment(remaining + 1).format("s [seconds]");
+                    await interaction.reply({
+                        embeds: [
+                            new EmbedBuilder()
+                                .setDescription(`<:error:1229320037131882598> You need to wait ${remainingTime} before using this command again.`)
+                                .setColor("#FF0000")
+                        ],
+                        ephemeral: false,
+                    });
 
-                    setTimeout(() => {
-                        let data = cooldown.get(cooldownKey);
-
-                        data = data.filter((v) => v !== interaction.commandName);
-
-                        if (data.length <= 0) {
-                            cooldown.delete(cooldownKey);
-                        } else {
-                            cooldown.set(cooldownKey, data);
+                    // edit the time each second
+                    const interval = setInterval(async () => {
+                        const remaining = 8000 - (Date.now() - player.cooldown.lastCommand);
+                        if (remaining <= 0) {
+                            clearInterval(interval);
+                            await interaction.editReply({
+                                embeds: [
+                                    new EmbedBuilder()
+                                        .setDescription('<:loading:1233741223399915522> Your cooldown has ended and you can now use the command!')
+                                        .setColor(config.color.main)
+                                ]
+                            });
+                            return;
                         }
-                    }, command.options.cooldown);
-                };
 
-                if (cooldown.has(cooldownKey)) {
-                    let data = cooldown.get(cooldownKey);
-
-                    if (data.some((v) => v === interaction.commandName)) {
-                        const cooldownMessage = (isGlobalCooldown
-                            ? config.messageSettings.globalCooldownMessage ?? "Slow down buddy! This command is on a global cooldown ({cooldown}s)."
-                            : config.messageSettings.cooldownMessage ?? "Slow down buddy! You're too fast to use this command ({cooldown}s).").replace(/{cooldown}/g, command.options.cooldown / 1000);
-
-                        await interaction.reply({
-                            content: cooldownMessage,
-                            ephemeral: true,
+                        await interaction.editReply({
+                            embeds: [
+                                new EmbedBuilder()
+                                    .setDescription(`<:error:1229320037131882598> You need to wait ${moment(remaining + 1).format("s [seconds]")} before using this command again.`)
+                                    .setColor("#FF0000")
+                            ]
                         });
+                    }, 1000);
 
-                        return;
-                    } else {
-                        cooldownFunction();
-                    }
-                } else {
-                    cooldown.set(cooldownKey, [interaction.commandName]);
-                    cooldownFunction();
+                    // setTimeout(async () => {
+                    //     await interaction.deleteReply();
+                    // }, remaining + 1000);
+
+                    return;
                 }
+
+                player.cooldown.lastCommand = currentTime;
+                await player.save();
             }
 
+            // await interaction.deleteReply();
             command.run(client, interaction);
         } catch (error) {
             log(error, "err");
