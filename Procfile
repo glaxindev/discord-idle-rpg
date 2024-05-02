@@ -1,1 +1,1 @@
-worker:node src/cluster.js
+worker: node src/cluster.js

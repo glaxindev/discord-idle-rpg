@@ -84,7 +84,7 @@ const lb = new LeaderboardBuilder()
   })
   // set players, usually you would get this from a database but for this example we will hardcode it
   .setPlayers(playersArray)
-  .setBackground("https://w0.peakpx.com/wallpaper/849/4/HD-wallpaper-minimal-blackgreen-material-led-light-simple-black-dark-green-design.jpg");
+  .setBackground(`${process.cwd()}/assets/bg.jpg`);
 
 lb.setVariant("default");
 

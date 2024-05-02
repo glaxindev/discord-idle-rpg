@@ -153,9 +153,7 @@ module.exports = {
                   .setRequiredXP(player.cultivation.requiredExperience) // required xp
                 //   .setLevel(player.level) // user level
                   .setOverlay(90) // overlay percentage. Overlay is a semi-transparent layer on top of the background
-                  .setBackground(
-                    "https://w0.peakpx.com/wallpaper/849/4/HD-wallpaper-minimal-blackgreen-material-led-light-simple-black-dark-green-design.jpg"
-                  ) // set background color or,
+                  .setBackground(`${process.cwd()}/assets/bg.jpg`)
                   .setStyles({
                     xp: {
                       color: config.color.main,
@@ -421,9 +419,7 @@ module.exports = {
                   .setRequiredXP(player.cultivation.requiredExperience) // required xp
                 //   .setLevel(player.level) // user level
                   .setOverlay(90) // overlay percentage. Overlay is a semi-transparent layer on top of the background
-                  .setBackground(
-                    "https://w0.peakpx.com/wallpaper/849/4/HD-wallpaper-minimal-blackgreen-material-led-light-simple-black-dark-green-design.jpg"
-                  ) // set background color or,
+                  .setBackground(`${process.cwd()}/assets/bg.jpg`)
                   .setStyles({
                     xp: {
                       color: config.color.main,
