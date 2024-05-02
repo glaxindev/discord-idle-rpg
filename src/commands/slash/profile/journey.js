@@ -382,10 +382,15 @@ module.exports = {
 
         const player = await Player.findOne({ userId: interaction.user.id });
 
+         const arrD = [
+                `**Please use the buttons below to move to the desired coordinates.** \n`,
+                `Current Location: ${player.location}`,
+            ];                                    
+
         const embed = new EmbedBuilder()
           .setTitle("Movement")
           .setDescription(
-            "Please use the buttons below to move to the desired coordinates."
+            arrD.join("\n")
           )
           .setColor(config.color.main)
           .addFields({
@@ -450,10 +455,15 @@ module.exports = {
 
           await player.save();
 
+          const arrD2 = [
+                `**Please use the buttons below to move to the desired coordinates.** \n`,
+                `Current Location: ${player.location}`,
+            ];
+
           const embed = new EmbedBuilder()
             .setTitle("Movement")
             .setDescription(
-              "Please use the buttons below to move to the desired coordinates."
+              arrD2.join("\n")
             )
             .setColor(config.color.main)
             .addFields({
